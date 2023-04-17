@@ -11,16 +11,8 @@ module Auth
     end
 
     def call
-
       user = User.find_by(email: @params[:email])
-      if user == nil
-        add_error("username or password not valid")
-        return
-      end
-      unless compare(@params[:password], user.password)
-        add_error("username or password not valid")
-        return
-      end
+      return add_error("username or password not valid") if user.nil? || !compare(@params[:password], user.password)
 
       payload = {
         data: {

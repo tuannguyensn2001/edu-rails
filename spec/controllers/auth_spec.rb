@@ -37,7 +37,13 @@ describe AuthController, type: :controller do
 
     context "with valid credentials" do
       it "returns a success message and access and refresh tokens" do
-        post :login, params: { email: user.email, password: "123456" }
+
+        valid_params = { email: user.email, password: "123456" }
+        mock_service = instance_double(Auth::Login, call: { access_token: "access_token", refresh_token: "refresh_token" })
+
+        allow(Auth::Login).to receive(:new).and_return(mock_service)
+        allow(mock_service).to receive(:errors).and_return([])
+        post :login, params: valid_params
 
         expect(response).to have_http_status(:ok)
 
@@ -47,9 +53,14 @@ describe AuthController, type: :controller do
 
     context "with invalid credentials" do
       it "returns a bad request status and an error message" do
-        post :login, params: { email: user.email, password: "wrong_password" }
+        invalid_params = { email: user.email, password: "123456" }
+        mock_service = instance_double(Auth::Login, call: { access_token: "access_token", refresh_token: "refresh_token" })
 
-        expect(response).not_to have_http_status(:ok)
+        allow(Auth::Login).to receive(:new).and_return(mock_service)
+        allow(mock_service).to receive(:errors).and_return(["username or password not valid"])
+        post :login, params: invalid_params
+
+        expect(response).to have_http_status(:bad_request)
       end
     end
   end

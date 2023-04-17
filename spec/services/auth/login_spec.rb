@@ -16,7 +16,7 @@ RSpec.describe Auth::Login, type: :service do
         result = service.call
         expect(result).to include(:access_token, :refresh_token)
       end
-      it "trigger notify job" do
+      it "triggers a notify job" do
         expect(NotifyUserLoginJob).to receive(:perform_later).with(User.last.id)
         service = described_class.new(valid_params, jwt_secret)
         service.call
