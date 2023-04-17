@@ -26,7 +26,7 @@ describe AuthController, type: :controller do
       end
       it "return response error" do
         post :register, params: params
-        expect(response).not_to have_http_status(:unprocessable_entity)
+        expect(response).not_to have_http_status(:ok)
         expect(User.count).to eq(0)
       end
     end
