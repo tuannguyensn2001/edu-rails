@@ -64,4 +64,34 @@ describe AuthController, type: :controller do
       end
     end
   end
+
+  describe "GET #get_me" do
+    before do
+      @user = create(:user)
+      @token = JWT.encode({data:{user_id: @user.id}}, Rails.application.config.secret_key)
+      request.headers["Authorization"] = "Bearer #{@token}"
+    end
+
+    context "when authentication succeeds" do
+      it "returns the user's information" do
+        mock_service = instance_double(Auth::GetMe, call: @user)
+        allow(Auth::GetMe).to receive(:new).with(@user.id).and_return(mock_service)
+        allow(mock_service).to receive(:errors).and_return([])
+        get :get_me
+
+        expect(response).to have_http_status(:ok)
+      end
+    end
+
+    context "when authentication fails" do
+      before do
+        request.headers["Authorization"] = nil
+      end
+
+      it "returns an error message" do
+        get :get_me
+        expect(response).to have_http_status(:unauthorized)
+      end
+    end
+  end
 end
