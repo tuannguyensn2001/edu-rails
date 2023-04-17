@@ -88,9 +88,11 @@ describe AuthController, type: :controller do
         request.headers["Authorization"] = nil
       end
 
-      it "returns an error message" do
+      it "returns an error message token not found" do
         get :get_me
+
         expect(response).to have_http_status(:unauthorized)
+        expect(JSON.parse(response.body)).to include("errors" => "Token not found")
       end
     end
   end
