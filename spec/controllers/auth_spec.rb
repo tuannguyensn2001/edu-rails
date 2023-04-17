@@ -24,10 +24,12 @@ describe AuthController, type: :controller do
           email: ""
         }
       end
-      it "return response error" do
+      it "return response error with invalid params" do
+        mock_service = instance_double(Auth::Register, call: nil, errors: ["data not valid"])
+        allow(Auth::Register).to receive(:new).and_return(mock_service)
         post :register, params: params
-        expect(response).not_to have_http_status(:ok)
-        expect(User.count).to eq(0)
+        expect(response).to have_http_status(:bad_request)
+        expect(JSON.parse(response.body)).to include("message" => "data not valid")
       end
     end
   end

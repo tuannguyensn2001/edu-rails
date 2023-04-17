@@ -5,7 +5,7 @@ class AuthController < ApplicationController
     service = Auth::Register.new(request)
     service.call
     if service.errors.any?
-      render json: {message: service.errors}, status: :bad_request
+      render json: {message: service.errors.first}, status: :bad_request
       return
     end
 
