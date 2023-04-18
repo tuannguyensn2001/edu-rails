@@ -5,4 +5,5 @@ Rails.application.routes.draw do
   # root "articles#index"
   post "/api/v1/auth/register", to: "auth#register"
   post "/api/v1/auth/login", to: "auth#login"
+  get "/api/v1/auth/me", to: "auth#get_me"
 end

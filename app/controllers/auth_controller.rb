@@ -1,4 +1,6 @@
 class AuthController < ApplicationController
+
+  before_action :authentication, only: [:get_me]
   def register
     request = params.permit(:email, :password, :username)
 
@@ -24,5 +26,19 @@ class AuthController < ApplicationController
     end
 
     render json: { message: "success", data: result }
+  end
+
+  def get_me
+    service = Auth::GetMe.new(@user_id)
+    user = service.call
+    if service.errors.any?
+      render json: { message: service.errors }, status: :bad_request
+      return
+    end
+    resp = {
+      message: "success",
+      data: user
+    }
+    render json: resp, :except=> [:password]
   end
 end
