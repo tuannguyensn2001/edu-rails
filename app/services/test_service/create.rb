@@ -6,16 +6,12 @@ module TestService
     end
 
     def call
-      test = Test.new(@params)
-      test.version = 1
+      test = Test.new(@params.merge(version: 1))
 
-      unless test.valid?
-        return add_error("data not valid")
-      end
       if test.save
-        nil
+        test
       else
-        add_error(test.errors.first)
+        add_error("data not valid")
       end
     end
   end
