@@ -1,0 +1,2 @@
+class TestContent < ApplicationRecord
+end
