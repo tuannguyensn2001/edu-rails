@@ -8,4 +8,5 @@ Rails.application.routes.draw do
   get "/api/v1/auth/me", to: "auth#get_me"
 
   post "/api/v1/tests", to:"test#create"
+  post "/api/v1/tests/content", to:"test#create_content"
 end
