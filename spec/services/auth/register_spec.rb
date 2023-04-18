@@ -28,11 +28,11 @@ RSpec.describe Auth::Register, type: :service do
     context "with invalid params" do
       let(:invalid_params) { { email: "test@example.com" } }
 
-      it "returns an error" do
+      it "returns an error data not valid" do
         service = described_class.new(invalid_params)
         service.call
 
-        # expect(service.errors).to eq(["data not valid"])
+        expect(service.errors.first.message).to eq("data not valid")
         expect(service.error?).to be_truthy
         expect(User.count).to eq(0)
       end
