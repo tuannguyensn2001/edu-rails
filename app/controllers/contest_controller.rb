@@ -5,11 +5,11 @@ class ContestController < ApplicationController
     request = params.permit(:test_id)
     request = request.merge(user_id: @user_id)
     service = Contest::Start.new(request)
-    service.call
+    session = service.call
     if service.error?
       render json: { message: service.errors.first }, status: :bad_request
     else
-      render json: { message: 'ok' }
+      render json: { message: 'ok', data: session }
     end
   end
 end
