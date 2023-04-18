@@ -53,5 +53,6 @@ end
 gem 'factory_bot', '~> 6.2', '>= 6.2.0'
 gem 'faker', '~> 2.18', '>= 2.18.0'
 gem 'factory_bot_rails'
+gem 'jwt'
 
 
