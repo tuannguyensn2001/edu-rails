@@ -9,4 +9,6 @@ Rails.application.routes.draw do
 
   post "/api/v1/tests", to:"test#create"
   post "/api/v1/tests/content", to:"test#create_content"
+
+  post "/api/v1/contest/start", to: "contest#start"
 end
