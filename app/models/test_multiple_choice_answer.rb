@@ -1,0 +1,2 @@
+class TestMultipleChoiceAnswer < ApplicationRecord
+end
