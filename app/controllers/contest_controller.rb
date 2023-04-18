@@ -1,6 +1,9 @@
 class ContestController < ApplicationController
+  before_action :authentication, only: [:start]
+
   def start
-    request = params.permit(:user_id, :test_id)
+    request = params.permit(:test_id)
+    request = request.merge(user_id: @user_id)
     service = Contest::Start.new(request)
     service.call
     if service.error?
