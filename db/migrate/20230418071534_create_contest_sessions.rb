@@ -5,6 +5,7 @@ class CreateContestSessions < ActiveRecord::Migration[7.0]
       t.integer :test_id
       t.string :session_code
       t.string :status
+      t.integer :deadline
 
       t.timestamps
     end

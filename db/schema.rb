@@ -10,15 +10,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_04_18_071534) do
+ActiveRecord::Schema[7.0].define(version: 2023_04_19_033836) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "contest_answers", force: :cascade do |t|
+    t.integer "session_id"
+    t.string "question_id"
+    t.string "integer"
+    t.string "answer"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "contest_sessions", force: :cascade do |t|
     t.integer "user_id"
     t.integer "test_id"
     t.string "session_code"
     t.string "status"
+    t.integer "deadline"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

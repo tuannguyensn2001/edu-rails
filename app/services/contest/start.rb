@@ -22,7 +22,8 @@ module Contest
         end
       end
 
-      session = ContestSession.create(user_id: @params[:user_id], test_id: @params[:test_id], session_code: SecureRandom.uuid, status: "START")
+      deadline = Time.now.to_i + (test.time_to_do * 60)
+      session = ContestSession.create(user_id: @params[:user_id], test_id: @params[:test_id], session_code: SecureRandom.uuid, status: "START", deadline: deadline)
       unless session.valid?
         return add_error("data not valid")
       end

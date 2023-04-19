@@ -11,4 +11,5 @@ Rails.application.routes.draw do
   post "/api/v1/tests/content", to:"test#create_content"
 
   post "/api/v1/contest/start", to: "contest#start"
+  post "/api/v1/contest/answer", to: "contest#answer"
 end
