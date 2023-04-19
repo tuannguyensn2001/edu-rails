@@ -13,4 +13,5 @@ Rails.application.routes.draw do
   post "/api/v1/contest/start", to: "contest#start"
   post "/api/v1/contest/answer", to: "contest#answer"
   post "/api/v1/contest/submit", to: "contest#submit"
+  get "/api/v1/contest/score", to: "contest#get_score"
 end

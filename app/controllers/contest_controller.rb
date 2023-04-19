@@ -36,6 +36,13 @@ class ContestController < ApplicationController
   end
 
   def get_score
-
+    request = params.permit(:session_id).merge(user_id: @user_id)
+    service = Contest::GetScore.new(request)
+    score = service.call
+    if service.error?
+      render json: { message: service.errors.first }, status: :bad_request
+    else
+      render json: { message: 'ok', data: score }
+    end
   end
 end
