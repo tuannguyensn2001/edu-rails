@@ -17,6 +17,7 @@ module Contest
         answers = test.test_content.testable.test_multiple_choice_answers
 
         user_answers = session.answers
+        # {1:"A", 2:"B"
         map = {}
         user_answers.each do |user_answer|
           map[user_answer.question_id] = user_answer.answer
@@ -33,6 +34,8 @@ module Contest
     rescue ActiveRecord::RecordNotFound
       add_error("not found")
     end
+
+
   end
 
 

@@ -69,7 +69,7 @@ RSpec.describe TestController, type: :controller do
 
       it 'returns a success message' do
         mock_service = instance_double(TestService::CreateContent, call: nil, errors: [],error?: false)
-        expect(TestService::CreateContent).to receive(:new).and_return(mock_service)
+        expect(TestService::CreateContent).to receive(:new).with(params).and_return(mock_service)
 
         post :create_content, params: params
 
